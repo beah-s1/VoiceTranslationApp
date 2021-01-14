@@ -187,6 +187,28 @@ class TranslateAPIController: NSObject, ObservableObject, SFSpeechRecognizerDele
         secondButtonText = "Start"
         
     }
+    
+    // 言語の切り替え
+    func switchLanguage(user: VTUser){
+        switch user{
+        case .first:
+            if let index = availableLanguages.firstIndex(of: firstLanguage){
+                if index.advanced(by: 1) >= availableLanguages.count{
+                    firstLanguage = availableLanguages[0]
+                }else{
+                    firstLanguage = availableLanguages[index.advanced(by: 1)]
+                }
+            }
+        case .second:
+            if let index = availableLanguages.firstIndex(of: secondLanguage){
+                if index.advanced(by: 1) >= availableLanguages.count{
+                    secondLanguage = availableLanguages[0]
+                }else{
+                    secondLanguage = availableLanguages[index.advanced(by: 1)]
+                }
+            }
+        }
+    }
 }
 
 enum VTState{
@@ -204,6 +226,12 @@ struct TranslationLanguage: Codable{
     var displayLanguage: String
     var localeIniOS: String
     var localeInAPI: String
+}
+
+extension TranslationLanguage: Equatable{
+    public static func == (lhs: TranslationLanguage, rhs: TranslationLanguage) -> Bool{
+        return lhs.localeIniOS == rhs.localeIniOS
+    }
 }
 
 

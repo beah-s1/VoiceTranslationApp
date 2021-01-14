@@ -18,8 +18,8 @@ struct ContentView: View {
                     Text(controller.secondText)
                         .padding()
                         .lineLimit(nil)
-                    Button("Language: \(controller.secondLanguage.displayLanguage)"){
-                        print("user1")
+                    Button("Language: \(controller.secondLanguage.displayLanguage)"){ // 言語切り替え用ボタン
+                        controller.switchLanguage(user: .second)
                     }
                     Button(controller.secondButtonText) {
                         switch controller.state{
@@ -40,9 +40,9 @@ struct ContentView: View {
                     Text(controller.firstText)
                         .padding()
                         .lineLimit(nil)
-                    Button("Language:\(controller.firstLanguage.displayLanguage)") {
-                            print("user1")
-                        }
+                    Button("Language:\(controller.firstLanguage.displayLanguage)") { // 言語切り替え用ボタン
+                        controller.switchLanguage(user: .first)
+                    }
                     Button(controller.firstButtonText) {
                         switch controller.state{
                         case .none:
