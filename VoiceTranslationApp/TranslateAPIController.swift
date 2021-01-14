@@ -51,6 +51,8 @@ class TranslateAPIController: NSObject, ObservableObject, SFSpeechRecognizerDele
     
     // 入力されているテキストを翻訳して、相手側のテキストにセットする
     func translate(user: VTUser){
+        self.state = .translating
+        
         var url: URL!
         
         switch user{
@@ -99,10 +101,16 @@ class TranslateAPIController: NSObject, ObservableObject, SFSpeechRecognizerDele
             case .failure(let error):
                 print(error.description)
             }
+            
+            self.state = .none
         }
     }
     
     func startDictation(user: VTUser){
+        if state != .none{
+            return
+        }
+
         state = .listning
         
         var locale: Locale!
@@ -178,7 +186,6 @@ class TranslateAPIController: NSObject, ObservableObject, SFSpeechRecognizerDele
         firstButtonText = "Start"
         secondButtonText = "Start"
         
-        state = .none
     }
 }
 
