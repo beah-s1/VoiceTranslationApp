@@ -22,7 +22,12 @@ struct ContentView: View {
                         print("user1")
                     }
                     Button(controller.secondButtonText) {
-                        print("user1")
+                        switch controller.state{
+                        case .none:
+                            controller.startDictation(user: .second)
+                        default:
+                            controller.endDictation()
+                        }
                     }
                     .padding()
                 }
@@ -39,7 +44,12 @@ struct ContentView: View {
                             print("user1")
                         }
                     Button(controller.firstButtonText) {
-                        print("user2")
+                        switch controller.state{
+                        case .none:
+                            controller.startDictation(user: .first)
+                        default:
+                            controller.endDictation()
+                        }
                     }
                     .padding()
                 }
