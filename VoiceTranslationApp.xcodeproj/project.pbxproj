@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,10 @@
 		960FCD5F25B02BDA00866D59 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 960FCD5E25B02BDA00866D59 /* Preview Assets.xcassets */; };
 		960FCD6A25B02BDA00866D59 /* VoiceTranslationAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FCD6925B02BDA00866D59 /* VoiceTranslationAppTests.swift */; };
 		960FCD7525B02BDA00866D59 /* VoiceTranslationAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FCD7425B02BDA00866D59 /* VoiceTranslationAppUITests.swift */; };
+		960FCD8625B02C2300866D59 /* TranslateAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FCD8525B02C2300866D59 /* TranslateAPIController.swift */; };
+		960FCD8B25B077FE00866D59 /* TranslationLanguage.json in Resources */ = {isa = PBXBuildFile; fileRef = 960FCD8A25B077FE00866D59 /* TranslationLanguage.json */; };
+		960FCD9025B0974500866D59 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960FCD8F25B0974500866D59 /* Env.swift */; };
+		960FCD9625B09C9500866D59 /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 960FCD9525B09C9500866D59 /* OAuthSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,9 @@
 		960FCD7025B02BDA00866D59 /* VoiceTranslationAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceTranslationAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		960FCD7425B02BDA00866D59 /* VoiceTranslationAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceTranslationAppUITests.swift; sourceTree = "<group>"; };
 		960FCD7625B02BDA00866D59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		960FCD8525B02C2300866D59 /* TranslateAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateAPIController.swift; sourceTree = "<group>"; };
+		960FCD8A25B077FE00866D59 /* TranslationLanguage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TranslationLanguage.json; sourceTree = "<group>"; };
+		960FCD8F25B0974500866D59 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				960FCD9625B09C9500866D59 /* OAuthSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +105,9 @@
 			children = (
 				960FCD5725B02BD900866D59 /* VoiceTranslationAppApp.swift */,
 				960FCD5925B02BD900866D59 /* ContentView.swift */,
+				960FCD8A25B077FE00866D59 /* TranslationLanguage.json */,
+				960FCD8525B02C2300866D59 /* TranslateAPIController.swift */,
+				960FCD8F25B0974500866D59 /* Env.swift */,
 				960FCD5B25B02BDA00866D59 /* Assets.xcassets */,
 				960FCD6025B02BDA00866D59 /* Info.plist */,
 				960FCD5D25B02BDA00866D59 /* Preview Content */,
@@ -146,6 +157,9 @@
 			dependencies = (
 			);
 			name = VoiceTranslationApp;
+			packageProductDependencies = (
+				960FCD9525B09C9500866D59 /* OAuthSwift */,
+			);
 			productName = VoiceTranslationApp;
 			productReference = 960FCD5425B02BD900866D59 /* VoiceTranslationApp.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +231,9 @@
 				Base,
 			);
 			mainGroup = 960FCD4B25B02BD800866D59;
+			packageReferences = (
+				960FCD9425B09C9500866D59 /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+			);
 			productRefGroup = 960FCD5525B02BD900866D59 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				960FCD8B25B077FE00866D59 /* TranslationLanguage.json in Resources */,
 				960FCD5F25B02BDA00866D59 /* Preview Assets.xcassets in Resources */,
 				960FCD5C25B02BDA00866D59 /* Assets.xcassets in Resources */,
 			);
@@ -260,7 +278,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				960FCD5A25B02BD900866D59 /* ContentView.swift in Sources */,
+				960FCD9025B0974500866D59 /* Env.swift in Sources */,
 				960FCD5825B02BD900866D59 /* VoiceTranslationAppApp.swift in Sources */,
+				960FCD8625B02C2300866D59 /* TranslateAPIController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +600,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		960FCD9425B09C9500866D59 /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		960FCD9525B09C9500866D59 /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 960FCD9425B09C9500866D59 /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 960FCD4C25B02BD800866D59 /* Project object */;
 }

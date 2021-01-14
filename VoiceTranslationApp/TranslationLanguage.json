@@ -1,0 +1,22 @@
+[
+    {
+        "displayLanguage": "日本語",
+        "localeIniOS": "ja-JP",
+        "localeInAPI": "ja"
+    },
+    {
+        "displayLanguage": "English(US)",
+        "localeIniOS": "en-US",
+        "localeInAPI": "en"
+    },
+    {
+        "displayLanguage": "한국어",
+        "localeIniOS": "ko-KR",
+        "localeInAPI": "ko"
+    },
+    {
+        "displayLanguage": "简体字",
+        "localeIniOS": "zh-CN",
+        "localeInAPI": "zh-CN",
+    }
+]
