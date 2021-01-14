@@ -49,6 +49,59 @@ class TranslateAPIController: NSObject, ObservableObject, SFSpeechRecognizerDele
         self.secondLanguage = availableLanguages[1]
     }
     
+    // 入力されているテキストを翻訳して、相手側のテキストにセットする
+    func translate(user: VTUser){
+        var url: URL!
+        
+        switch user{
+        case .first:
+            url = URL(string: "\(env.translationApiUrl)/generalNT_\(firstLanguage.localeInAPI)_\(secondLanguage.localeInAPI)/")!
+        case .second:
+            url = URL(string: "\(env.translationApiUrl)/generalNT_\(secondLanguage.localeInAPI)_\(firstLanguage.localeInAPI)/")!
+        }
+        
+        // 各種パラメーターのセット
+        var parameter = OAuthSwift.Parameters()
+        parameter["key"] = env.translationApiKey
+        parameter["name"] = env.translationApiName
+        parameter["type"] = "json"
+        parameter["text"] = (user == .first) ? firstText : secondText
+        
+        let oauthClient = OAuth1Swift(consumerKey: env.translationApiKey,
+                                      consumerSecret: env.translationApiSecret)
+        oauthClient.client.post(url,
+                               parameters: parameter) { (result) in
+            switch result{
+            case .success(let response):
+                do{
+                    let parsedResponse = try JSONDecoder().decode(MTResponse.self, from: response.data)
+                    let translatedText = parsedResponse.resultSet.result.information.translationText
+                    
+                    // 翻訳を要求したユーザーと反対側の方に翻訳後のテキストを表示する
+                    switch user{
+                    case .first:
+                        self.secondText = translatedText
+                    case .second:
+                        self.firstText = translatedText
+                    }
+                }catch{
+                    switch user{
+                    case .first:
+                        self.firstText = "Failed to translate."
+                    case .second:
+                        self.secondText = "Failed to translate."
+                    }
+                    
+                    return
+                }
+                
+                break
+            case .failure(let error):
+                print(error.description)
+            }
+        }
+    }
+    
     func startDictation(user: VTUser){
         state = .listning
         
@@ -99,7 +152,7 @@ class TranslateAPIController: NSObject, ObservableObject, SFSpeechRecognizerDele
             }
             
             // この先で実際の翻訳処理が走る
-            print(recognitionResult.bestTranscription.formattedString)
+            self.translate(user: user)
             
             // Audioの使用終了
             self.audioEngine.inputNode.removeTap(onBus: 0)
@@ -144,4 +197,43 @@ struct TranslationLanguage: Codable{
     var displayLanguage: String
     var localeIniOS: String
     var localeInAPI: String
+}
+
+
+// みんなの翻訳APIのモデル定義
+struct MTResponse: Codable{
+    var resultSet: MTResultSet
+    
+    enum CodingKeys: String, CodingKey{
+        case resultSet = "resultset"
+    }
+}
+
+struct MTResultSet: Codable{
+    var code: Int
+    var message: String
+    var request: MTRequest
+    var result: MTResult
+}
+
+struct MTRequest: Codable{
+    var url: String
+    var text: String
+    var split: Int
+    var data: String
+}
+
+struct MTResult: Codable{
+    var text: String
+    var information: MTInformation
+}
+
+struct MTInformation: Codable{
+    var sourceText: String
+    var translationText: String
+    
+    enum CodingKeys: String, CodingKey{
+        case sourceText = "text-s"
+        case translationText = "text-t"
+    }
 }

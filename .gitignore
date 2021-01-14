@@ -1,2 +1,4 @@
 
 VoiceTranslationApp/Env.swift
+
+*.xcbkptlist
